@@ -20,9 +20,11 @@ type Add struct{}
 
 func (Add) slot() int { return 0 }
 
+type Items = map[action]item.Stack
+
 type Kit interface {
 	Name() string
-	Items() map[action]item.Stack
+	Items() Items
 	Armour() [4]item.Stack
 }
 
