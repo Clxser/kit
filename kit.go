@@ -11,10 +11,10 @@ type action interface {
 }
 
 type Set struct {
-	int
+	Slot int
 }
 
-func (s Set) slot() int { return s.int }
+func (s Set) slot() int { return s.Slot }
 
 type Add struct{}
 
