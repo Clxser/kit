@@ -1,6 +1,7 @@
 package kit
 
 import (
+	"github.com/df-mc/dragonfly/server/entity/effect"
 	"github.com/df-mc/dragonfly/server/item"
 	"github.com/df-mc/dragonfly/server/item/inventory"
 	"github.com/df-mc/dragonfly/server/player"
@@ -22,6 +23,10 @@ func (Add) slot() int { return 0 }
 
 type Items = map[action]item.Stack
 
+type EffectKit interface {
+	Effects() []effect.Effect
+}
+
 type Kit interface {
 	Name() string
 	Items() Items
@@ -38,6 +43,12 @@ var armrFuncs = [4]func(armr *inventory.Armour, i item.Stack){
 func GiveKit(p *player.Player, kit Kit) {
 	inv := p.Inventory()
 	armr := p.Armour()
+
+	if e, ok := kit.(EffectKit); ok {
+		for _, ef := range e.Effects() {
+			p.AddEffect(ef)
+		}
+	}
 
 	for n, i := range kit.Armour() {
 		if !i.Empty() {
