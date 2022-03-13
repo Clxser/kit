@@ -11,15 +11,19 @@ type action interface {
 	slot() int
 }
 
-type Set struct {
-	Slot int
+func Set(slot int) set { return set{s: slot} }
+
+type set struct {
+	s int
 }
 
-func (s Set) slot() int { return s.Slot }
+func (s set) slot() int { return s.s }
 
-type Add struct{}
+func Add() add { return add{} }
 
-func (Add) slot() int { return 0 }
+type add struct{}
+
+func (add) slot() int { return 0 }
 
 type Items = map[action]item.Stack
 
@@ -58,9 +62,9 @@ func GiveKit(p *player.Player, kit Kit) {
 
 	for act, i := range kit.Items() {
 		switch a := act.(type) {
-		case Add:
+		case add:
 			inv.AddItem(i)
-		case Set:
+		case set:
 			inv.SetItem(a.slot(), i)
 		}
 	}
