@@ -7,9 +7,12 @@ import (
 	"github.com/df-mc/dragonfly/server/player"
 )
 
+type Add = []item.Stack
+type Slots = map[int]item.Stack
+
 type Items struct {
-	Slots map[int]item.Stack
-	Add []item.Stack
+	Slots Slots
+	Add Add
 }
 
 type EffectKit interface {
