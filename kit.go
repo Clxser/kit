@@ -48,12 +48,13 @@ func GiveKit(p *player.Player, kit Kit) {
 		}
 	}
 
-	for _, i := range kit.Items().Add{
-		inv.AddItem(i)
-	}
 
 	for slot, i := range kit.Items().Slots{
 		inv.SetItem(slot, i)
+	}
+
+	for _, i := range kit.Items().Add{
+		inv.AddItem(i)
 	}
 
 }
