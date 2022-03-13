@@ -45,13 +45,12 @@ func GiveKit(p *player.Player, kit Kit) {
 		}
 	}
 
-	for act, i := range kit.Items() {
-		switch a := act.(type) {
-		case add:
-			inv.AddItem(i)
-		case set:
-			inv.SetItem(a.slot(), i)
-		}
+	for _, i := range kit.Items().Add{
+		inv.AddItem(i)
+	}
+
+	for slot, i := range kit.Items().Slots{
+		inv.SetItem(slot, i)
 	}
 
 }
