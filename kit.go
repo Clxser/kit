@@ -7,25 +7,10 @@ import (
 	"github.com/df-mc/dragonfly/server/player"
 )
 
-type action interface {
-	slot() int
+type Items struct {
+	Slots map[int]item.Stack
+	Add []item.Stack
 }
-
-func Set(slot int) set { return set{s: slot} }
-
-type set struct {
-	s int
-}
-
-func (s set) slot() int { return s.s }
-
-func Add() add { return add{} }
-
-type add struct{}
-
-func (add) slot() int { return 0 }
-
-type Items = map[action]item.Stack
 
 type EffectKit interface {
 	Effects() []effect.Effect
