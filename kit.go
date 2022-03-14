@@ -15,6 +15,10 @@ type Items struct {
 	Add Add
 }
 
+type Armour struct {
+	Helmet, Chestplate, Leggings, Boots item.Stack
+}
+
 type EffectKit interface {
 	Effects() []effect.Effect
 }
@@ -22,14 +26,7 @@ type EffectKit interface {
 type Kit interface {
 	Name() string
 	Items() Items
-	Armour() [4]item.Stack
-}
-
-var armrFuncs = [4]func(armr *inventory.Armour, i item.Stack){
-	func(armr *inventory.Armour, i item.Stack) { armr.SetHelmet(i) },
-	func(armr *inventory.Armour, i item.Stack) { armr.SetChestplate(i) },
-	func(armr *inventory.Armour, i item.Stack) { armr.SetLeggings(i) },
-	func(armr *inventory.Armour, i item.Stack) { armr.SetBoots(i) },
+	Armour() Armour
 }
 
 func GiveKit(p *player.Player, kit Kit) {
@@ -41,13 +38,9 @@ func GiveKit(p *player.Player, kit Kit) {
 			p.AddEffect(ef)
 		}
 	}
-
-	for n, i := range kit.Armour() {
-		if !i.Empty() {
-			armrFuncs[n](armr, i)
-		}
-	}
-
+	
+	a := kit.Armour()
+	p.Set(a.Helmet, a.Chestplate, a.Leggings, a.Boots)
 
 	for slot, i := range kit.Items().Slots{
 		inv.SetItem(slot, i)
