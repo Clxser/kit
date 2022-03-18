@@ -3,7 +3,6 @@ package kit
 import (
 	"github.com/df-mc/dragonfly/server/entity/effect"
 	"github.com/df-mc/dragonfly/server/item"
-	"github.com/df-mc/dragonfly/server/item/inventory"
 	"github.com/df-mc/dragonfly/server/player"
 )
 
@@ -40,7 +39,7 @@ func GiveKit(p *player.Player, kit Kit) {
 	}
 	
 	a := kit.Armour()
-	p.Set(a.Helmet, a.Chestplate, a.Leggings, a.Boots)
+	p.Armour().Set(a.Helmet, a.Chestplate, a.Leggings, a.Boots)
 
 	for slot, i := range kit.Items().Slots{
 		inv.SetItem(slot, i)
