@@ -39,7 +39,7 @@ func GiveKit(p *player.Player, kit Kit) {
 	}
 	
 	a := kit.Armour()
-	p.Armour().Set(a.Helmet, a.Chestplate, a.Leggings, a.Boots)
+	armr.Set(a.Helmet, a.Chestplate, a.Leggings, a.Boots)
 
 	for slot, i := range kit.Items().Slots{
 		inv.SetItem(slot, i)
