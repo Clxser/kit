@@ -1,4 +1,4 @@
-module github.com/df-plus/kit
+module github.com/Clxser/kit
 
 go 1.17
 
